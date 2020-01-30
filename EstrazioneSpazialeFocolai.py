@@ -56,6 +56,9 @@ for root, dirs, files in os.walk(arcpy.env.scratchFolder):
 			focolai_partials.append(os.path.join(arcpy.env.scratchFolder,filename))
 
 arcpy.Merge_management(focolai_partials,os.path.join(arcpy.env.scratchFolder,'focolai_brucellosi_19'))
+# SELEZIONE FOCOLAI AOI
+focolaiAOI_selection = arcpy.SelectLayerByLocation_management(os.path.join(arcpy.env.scratchFolder,'focolai_brucellosi_19'),"INTERSECT","selezione")
+arcpy.CopyFeatures_management(focolaiAOI_selection,os.path.join(arcpy.env.scratchFolder,'focolai_brucellosi_selection'))
 # PULIZIA CARTELLA DAI DATI PARZIALI
 for file in focolai_partials:
 	arcpy.Delete_management(file)
